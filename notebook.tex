@@ -1,0 +1,2144 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Capstone\_final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Can a Machine-Based Sommelier predict exceptional
+wine?}\label{can-a-machine-based-sommelier-predict-exceptional-wine}
+
+Using 150,000 wine reviews, can we predict a 90+ point wine?
+
+Examples of potential uses:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Prioritizing of wine production
+\item
+  Purchasing decisions
+\item
+  Determining changing wine preferences over time
+\end{enumerate}
+
+    \subsection{Data}\label{data}
+
+The wine review data used for point predictions is sourced from Kaggle's
+"Wine Review Data" set located
+\href{https://www.kaggle.com/zynicide/wine-reviews/data}{here}
+
+The data was scraped from Wine Enthusiast on November 22nd, 2017. As a
+guide for the points system, Wine Spectator magazine, one of the largest
+wine scoring operations, indicates the following qualitative rating by
+score*:
+
+\begin{itemize}
+\tightlist
+\item
+  60-69. Wines are flawed and not recommended
+\item
+  70-79 Wines are flawed and taste average
+\item
+  80-84 wines are above average to good
+\item
+  85-90 wines are good to very good
+\item
+  90-94 wines are superior to exceptional
+\item
+  95-100. Wines are benchmark examples or classic
+\end{itemize}
+
+*The data is only comprised of wines with ratings of 80 and above
+
+    \subsection{Goals}\label{goals}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Train a classifier to determine whether or not a bottle of wine is
+  exceptional (90+).
+\item
+  Understand what makes a wine exceptional (feature exploration).
+\item
+  Explore whether or not we can go further than a classifier, and
+  instead use a regressor to predict points.
+\end{enumerate}
+
+    \subsection{Approach}\label{approach}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Visualizing and quantifying relationships in the data to better
+  understand common point values, prices, varieties, and countries
+  and/or regions. This will also help inform whether or not 90 is an
+  appropriate cutoff point
+\item
+  Preprocessing text-based features by introducing metadata features.
+  Additionally, we will utilize a natural language processing technique
+  known as Term frequency inverse document frequency (TF-IDF) to extract
+  the words that best summarize the descriptions
+\item
+  Exploring several classifiers including Naive Bayes, Logistic
+  Regression,Gradient Boost, Random Forest, and a voting ensemle of all
+  four.
+\item
+  Testing whether or not automated feature selection of PCA is helpful
+  in increasing performance and/or generalizability of the model.
+\item
+  Testing which classifier hyperparameters help best to achieve
+  increased performance and/or generalizability of the model.
+\item
+  Testing how the model performs when removing key features such as
+  price.
+\item
+  Testing linear regression to determine a baseline for regressor
+  performance.
+\end{enumerate}
+
+    \subsection{Steps}\label{steps}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Load the data
+\item
+  Visualize by country, variety, price, and point assignment
+\item
+  Add features for text
+\item
+  Test Classifiers: Naive Bayes, Logistic Regression, Random Forest, and
+  voting ensemble of all three
+\item
+  Analyze important features
+\item
+  Model selection
+\item
+  Conclusion \& Future steps
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+        \PY{k+kn}{from} \PY{n+nn}{textblob} \PY{k}{import} \PY{n}{TextBlob}
+        \PY{k+kn}{from} \PY{n+nn}{textblob} \PY{k}{import} \PY{n}{Word}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{BernoulliNB}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{f1\PYZus{}score}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PY{n}{classification\PYZus{}report}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{ensemble}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA} 
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectFromModel}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,} \PY{n}{Ridge}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsection{Step 1: Load the data}\label{step-1-load-the-data}
+
+There are 150,930 reviews in the Wine Enthusiast data set. Since 90+
+wines are considered "superior to exceptional", I added a flag to
+indicate wines with a 90+ rating. Also, I filled in the mean price for
+wines where price was missing (13,695 or 9\%).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Load the data}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winemag\PYZhy{}data\PYZus{}first150k.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Insert column to flag \PYZdq{}Exceptional wines\PYZdq{}}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}set null prices to the mean price}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Drop unnamed col}
+         \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}country, description, designation, points, price, province, region\PYZus{}1, region\PYZus{}2, variety, winery, is\PYZus{}exceptional}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}   country                                        description  \textbackslash{}
+         0      US  This tremendous 100\% varietal wine hails from {\ldots}   
+         1   Spain  Ripe aromas of fig, blackberry and cassis are {\ldots}   
+         
+                                     designation  points  price        province  \textbackslash{}
+         0                     Martha's Vineyard      96  235.0      California   
+         1  Carodorum Selección Especial Reserva      96  110.0  Northern Spain   
+         
+               region\_1 region\_2             variety                   winery  \textbackslash{}
+         0  Napa Valley     Napa  Cabernet Sauvignon                    Heitz   
+         1         Toro      NaN       Tinta de Toro  Bodega Carmen Rodríguez   
+         
+            is\_exceptional  
+         0               1  
+         1               1  
+\end{Verbatim}
+            
+    \subsection{Step 2: Visualize by country, variety, price, and point
+assignment}\label{step-2-visualize-by-country-variety-price-and-point-assignment}
+
+\begin{itemize}
+\tightlist
+\item
+  Wine in this dataset is dominated by about 10 countries, where
+  conditions are favorable for grapes
+\item
+  Chardonnay, Pinot Noir, Cabernet Sauvignon, and a Red Blend are the
+  most popular wine varieties
+\item
+  The highest priced wine in the dataset is a \$2,300 Bordeaux-style Red
+  Blend (99 points), while the lowest priced wine is a \$4 Merlot (86
+  points). The average price of a bottle of wine in the dataset was \$33
+\item
+  There is a positively correlated relationship between price and points
+  of .44.
+\item
+  The average point value assigned is 88, and approximately 68\% of the
+  wine bottles are rated below 90
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} bar plot}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wines counts by Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}Wine in this dataset is dominated by about 10 countries, where conditions are favorable for grapes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Text(0.5,1,'Wines counts by Country')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} bar plot}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wines counts by Top 20 varieties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Chardonnay, Pinot Noir, Cabernet Sauvignon, and a Red Blend are the most popular wine varieties}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Text(0.5,1,'Wines counts by Top 20 varieties')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Plot Price}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Price: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}The highest priced wine in the dataset is a \PYZdl{}2,300 Bordeaux\PYZhy{}style Red Blend (99 points), }
+        \PY{c+c1}{\PYZsh{}while the lowest priced wine is a \PYZdl{}4 Merlot (86 points).  The average price of a bottle of wine in the dataset was \PYZdl{}33}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average Price: 33.131482493532985
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}Scatter plot for Prive vs. Points}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price vs. Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correlation:  }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}There is a positively correlated relationship between price and points of .44.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation:  0.4384070024187359
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Histogram of Points}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wine counts by Points Assigned}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Print mean/median/mode}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mode: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean: 87.8884184721394
+Median: 88.0
+Mode: 87
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}Not Exceptional vs. Exceptional}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=}  \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{y}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}print counts on bar}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{500}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:,\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{xaxis\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Exceptional vs. Exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{xaxis\PYZus{}labels}\PY{p}{,} \PY{n}{rotation} \PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}The average point value assigned is 88, and approximately 68\PYZpc{} of the wine bottles are rated below 90}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} ([<matplotlib.axis.XTick at 0xfaf4070>, <matplotlib.axis.XTick at 0xfc5df90>],
+          <a list of 2 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{}See if there are any differences in point distributions by wine variety}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{top\PYZus{}10} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}10}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{variety}\PY{p}{)}\PY{o}{.}\PY{n}{points}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{kde}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top 10 Varieties Density Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} Text(0.5,1,'Top 10 Varieties Density Plot')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}See if there are any differences in point distributions by country}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{top\PYZus{}10} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}10}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{country}\PY{p}{)}\PY{o}{.}\PY{n}{points}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{kde}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top 10 Countries Density Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} Text(0.5,1,'Top 10 Countries Density Plot')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Step 3: Add features for
+text}\label{step-3-add-features-for-text}
+
+The description column offers a few sentences about the wine. I used
+this to create several new features such as:
+
+\begin{itemize}
+\tightlist
+\item
+  Word count
+\item
+  Character count
+\item
+  Average number of words
+\item
+  Number of stop words (commonly used word (such as "the" to ignore
+  based on the english dictionary)
+\item
+  Number of numbers
+\item
+  Number of percents
+\end{itemize}
+
+I then created dummy variables for the remaining columns (excluding
+description). I also added designation and winery to the description
+since there were many variations and this created tens of thousands of
+new dummy variables, and thus memory errors.
+
+Finally, I used a TFIDF vectorizer on the newly created description
+column (that now includes winery and designation) to take the top 1,000
+words from the description and create columns for each word.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}avg word function}
+         \PY{k}{def} \PY{n+nf}{avg\PYZus{}word}\PY{p}{(}\PY{n}{sentence}\PY{p}{)}\PY{p}{:}
+           \PY{n}{words} \PY{o}{=} \PY{n}{sentence}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+           \PY{k}{return} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{word}\PY{p}{)} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}Add feaures}
+         
+         \PY{c+c1}{\PYZsh{}text features}
+         \PY{n}{stop} \PY{o}{=} \PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{char\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{len}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} this also includes spaces}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{avg\PYZus{}word}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stopwords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stop}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{numerics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{percent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{endswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}description processing}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{x} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stop}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}combine description and designation into 1 column}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{designation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}get rid of description so you can get dummies}
+         \PY{n}{df\PYZus{}description} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{designation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{winery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}    points  price  is\_exceptional  word\_count  char\_count  avg\_word  stopwords  \textbackslash{}
+         0      96  235.0               1          60         355  4.933333         23   
+         1      96  110.0               1          51         318  5.254902         18   
+         
+            numerics  percent  country\_Albania       {\ldots}         variety\_Xynisteri  \textbackslash{}
+         0         0        1                0       {\ldots}                         0   
+         1         0        0                0       {\ldots}                         0   
+         
+            variety\_Yapincak  variety\_Zelen  variety\_Zibibbo  variety\_Zierfandler  \textbackslash{}
+         0                 0              0                0                    0   
+         1                 0              0                0                    0   
+         
+            variety\_Zierfandler-Rotgipfler  variety\_Zinfandel  variety\_Zlahtina  \textbackslash{}
+         0                               0                  0                 0   
+         1                               0                  0                 0   
+         
+            variety\_Zweigelt  variety\_Žilavka  
+         0                 0                0  
+         1                 0                0  
+         
+         [2 rows x 2398 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Create tfidf features}
+         \PY{c+c1}{\PYZsh{}TF\PYZhy{}IDF:  NLP technicque that is intended to reflect how important a word is to the description}
+         \PY{c+c1}{\PYZsh{}in the collection of all descriptions.  Here, we take the top 1,000 top words}
+         \PY{n}{tfidf} \PY{o}{=} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{lowercase}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+         \PY{n}{stop\PYZus{}words}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{vect} \PY{o}{=} \PY{n}{tfidf}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df\PYZus{}description}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{columns} \PY{o}{=} \PY{n}{tfidf}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{a} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{n}{vect}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{p}{,} \PY{n}{df2}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}Definine outcome and predictors.}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZti{}}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Definine outcome and predictors with price removed.}
+         \PY{n}{y\PYZus{}np} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X\PYZus{}np} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZti{}}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Definine outcome and predictors with price removed.}
+         \PY{n}{y\PYZus{}points} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X\PYZus{}points} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZti{}}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}exceptional}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    points  price  is\_exceptional  word\_count  char\_count  avg\_word  stopwords  \textbackslash{}
+         0      96  235.0               1          60         355  4.933333         23   
+         1      96  110.0               1          51         318  5.254902         18   
+         
+            numerics  percent  country\_Albania    {\ldots}         years  yeasty  yellow  \textbackslash{}
+         0         0        1                0    {\ldots}      0.305321     0.0     0.0   
+         1         0        0                0    {\ldots}      0.000000     0.0     0.0   
+         
+            youll  young  youthful  zest  zesty  zin  zinfandel  
+         0    0.0    0.0       0.0   0.0    0.0  0.0        0.0  
+         1    0.0    0.0       0.0   0.0    0.0  0.0        0.0  
+         
+         [2 rows x 3398 columns]
+\end{Verbatim}
+            
+    \subsection{Step 4: Test classifiers}\label{step-4-test-classifiers}
+
+I tested 4 classifiers and a voting ensemble of the 4 in order to
+determine which would produce the higest f1 score. The f1-score is
+useful since it considers both the precision and recall. Precision, in
+this case, would be the percentage of exceptional wines predicted that
+were actually exceptional, while recall is the percentage of exceptional
+predications that were actually correct.
+
+While the highest f1-score on the test set is most important, it's also
+important to consider the results on the training set to determine if
+the model is perhaps overfitting or not generalized enough. An ideal
+model, therefore, would have a high f1-score with little difference
+between the training and test set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        
+        \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}3}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Create/Load the test and train set}
+        \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Create training and test sets.}
+            \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=}  \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+            
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Create/Load the test and train set for no points}
+        \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Create training and test sets.}
+            \PY{n}{X\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}np}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}np} \PY{o}{=}  \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}np}\PY{p}{,} \PY{n}{y\PYZus{}np}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+            
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}np}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}np}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{X\PYZus{}train\PYZus{}np} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test\PYZus{}np} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}train\PYZus{}np} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}test\PYZus{}np} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}np.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Create/Load the test and train set for point predictions}
+        \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Create training and test sets.}
+            \PY{n}{X\PYZus{}train\PYZus{}points}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}points}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}points}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}points} \PY{o}{=}  \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}points}\PY{p}{,} \PY{n}{y\PYZus{}points}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+            
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}points}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}points}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}points}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}points}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{X\PYZus{}train\PYZus{}points} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test\PYZus{}points} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}train\PYZus{}points} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{y\PYZus{}test\PYZus{}points} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}points.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}model}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{n}{bool\PYZus{}feature\PYZus{}selection}\PY{p}{,} \PY{n}{bool\PYZus{}pca}\PY{p}{,} \PY{n}{num\PYZus{}components}\PY{p}{,} \PY{n}{clf}\PY{p}{)}\PY{p}{:}
+            \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Initialize and fit the model.}
+                \PY{n}{scaler} \PY{o}{=}  \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{False}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{False} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}       
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                        
+                \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{pipeline} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy:  }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ seconds \PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{pipeline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}Naive Bayes}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{naive\PYZus{}bayes.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{BernoulliNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Naive Bayes
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.83      0.86     71916
+          1       0.69      0.80      0.74     33735
+
+avg / total       0.83      0.82      0.83    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.83      0.86     30804
+          1       0.69      0.79      0.74     14475
+
+avg / total       0.83      0.82      0.82     45279
+
+Accuracy:  0.8206895028600455
+--- 45.21098303794861 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Logistic Regression}
+        \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic\PYZus{}regression.pkl}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e9}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Get coefficients from Logistic Regression}
+        \PY{n}{coeffs\PYZus{}lr} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{pipeline}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+        \PY{n}{coeffs\PYZus{}lr\PYZus{}bad} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{pipeline}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Logistic Regression
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.92      0.91     71916
+          1       0.83      0.79      0.81     33735
+
+avg / total       0.88      0.88      0.88    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.89      0.91      0.90     30804
+          1       0.81      0.76      0.78     14475
+
+avg / total       0.86      0.87      0.86     45279
+
+Accuracy:  0.8656772455222068
+--- 21.998245000839233 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}Try Gradient Boost }
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gradient\PYZus{}boost\PYZus{}ne100\PYZus{}md5\PYZus{}lr99.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deviance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{99}\PY{p}{\PYZcb{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boost with 100 estimators, max depth of 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{params}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Gradient Boost with 100 estimators, max depth of 5
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.93      0.94      0.94     71916
+          1       0.88      0.84      0.86     33735
+
+avg / total       0.91      0.91      0.91    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.92      0.91     30804
+          1       0.81      0.77      0.79     14475
+
+avg / total       0.87      0.87      0.87     45279
+
+Accuracy:  0.8708452041785375
+--- 27.052549839019775 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{}Try a Support Vector machine classifier}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Support Vector Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Support Vector Classifier
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.94      0.96      0.95     71916
+          1       0.92      0.87      0.90     33735
+
+avg / total       0.93      0.93      0.93    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.94      0.92     30804
+          1       0.86      0.79      0.82     14475
+
+avg / total       0.89      0.89      0.89     45279
+
+Accuracy:  0.889087656529517
+--- 37771.2895629406 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}Random Forest}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.99      1.00      1.00     71916
+          1       1.00      0.98      0.99     33735
+
+avg / total       0.99      0.99      0.99    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.90      0.96      0.93     30804
+          1       0.90      0.76      0.83     14475
+
+avg / total       0.90      0.90      0.90     45279
+
+Accuracy:  0.8978776033039599
+--- 19.478703260421753 seconds ---
+
+    \end{Verbatim}
+
+    \subsection{Attempting feature selection and
+PCA}\label{attempting-feature-selection-and-pca}
+
+Since the random forest performed best on the test set, I attempted
+feature selection and PCA to see if I could build a more generalizable
+model where the f1-score for the training set and test set would
+converge. I started with feature selection and PCA of 100, 250, 500, and
+1000. This had the effect of lowering the f1-score for both the training
+and test set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Try Random Forest with feature selection and PCA 100}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}fs\PYZus{}100.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with Feature selection and PCA (100)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}lkonig\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}svm\textbackslash{}classes.py:219: DeprecationWarning: loss='l2' has been deprecated in favor of loss='squared\_hinge' as of 0.16. Backward compatibility for the loss='l2' will be removed in 1.0
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.97      1.00      0.98     71916
+          1       0.99      0.94      0.96     33735
+
+avg / total       0.98      0.98      0.98    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.88      0.96      0.92     30804
+          1       0.88      0.74      0.80     14475
+
+avg / total       0.88      0.88      0.88     45279
+
+Accuracy:  0.884781024315908
+--- 3474.496089696884 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}Try Random Forest with feature selection and PCA 250}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}fs\PYZus{}250.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with Feature selection and PCA (250)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}lkonig\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}svm\textbackslash{}classes.py:219: DeprecationWarning: loss='l2' has been deprecated in favor of loss='squared\_hinge' as of 0.16. Backward compatibility for the loss='l2' will be removed in 1.0
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest with Feature selection and PCA (250)
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.98      1.00      0.99     71916
+          1       0.99      0.95      0.97     33735
+
+avg / total       0.98      0.98      0.98    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.88      0.96      0.92     30804
+          1       0.89      0.72      0.79     14475
+
+avg / total       0.88      0.88      0.88     45279
+
+Accuracy:  0.8803197950484772
+--- 3584.319991827011 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}Try Random Forest with feature selection and PCA 500}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}fs\PYZus{}500.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with Feature selection and PCA (500)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest with Feature selection and PCA (500)
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.96      0.99      0.98     71916
+          1       0.99      0.91      0.95     33735
+
+avg / total       0.97      0.97      0.97    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.86      0.96      0.91     30804
+          1       0.88      0.67      0.76     14475
+
+avg / total       0.87      0.87      0.86     45279
+
+Accuracy:  0.8663177190308973
+--- 30.785135507583618 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}Try Random Forest with feature selection and PCA 1000}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}fs\PYZus{}1000.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with Feature selection and PCA (1000)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest with Feature selection and PCA (1000)
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.97      1.00      0.98     71916
+          1       0.99      0.93      0.96     33735
+
+avg / total       0.98      0.97      0.97    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.86      0.96      0.90     30804
+          1       0.88      0.66      0.75     14475
+
+avg / total       0.86      0.86      0.86     45279
+
+Accuracy:  0.8618344044700634
+--- 40.65083932876587 seconds ---
+
+    \end{Verbatim}
+
+    \subsection{Attempting PCA without feature
+selection}\label{attempting-pca-without-feature-selection}
+
+I then attempted PCA without feature selection for 2000 and 3000
+components. Once again, this reduced the f1-score slightly for the
+training set, and did not improve the f1-score for the test set. As a
+result, I concluded that feature selection and PCA would not be useful
+for increasing model performance and generalizability.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}Try Random Forest without feature selection and PCA 2000}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}2000.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with PCA (2000)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest with PCA (2000)
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.97      1.00      0.98     71916
+          1       1.00      0.93      0.96     33735
+
+avg / total       0.98      0.98      0.98    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.85      0.96      0.90     30804
+          1       0.88      0.64      0.74     14475
+
+avg / total       0.86      0.86      0.85     45279
+
+Accuracy:  0.8561584840654608
+--- 65.66791224479675 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}Try Random Forest without feature selection and PCA 3000}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}3000.pkl}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest with PCA (3000)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest with PCA (3000)
+Training set:
+             precision    recall  f1-score   support
+
+          0       0.99      1.00      0.99     71916
+          1       1.00      0.98      0.99     33735
+
+avg / total       0.99      0.99      0.99    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.85      0.96      0.90     30804
+          1       0.89      0.65      0.75     14475
+
+avg / total       0.86      0.86      0.85     45279
+
+Accuracy:  0.8601338368780229
+--- 89.66753697395325 seconds ---
+
+    \end{Verbatim}
+
+    \subsection{Hyperparameter Tuning}\label{hyperparameter-tuning}
+
+Since a random forest without feature selection and PCA seems to perform
+best, I decided to tune the hyperparameters of the random forest
+classifier to improve performance using RandomizedSearchCV.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}
+         \PY{c+c1}{\PYZsh{} Number of trees in random forest}
+         \PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{start} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{stop} \PY{o}{=} \PY{l+m+mi}{2000}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Number of features to consider at every split}
+         \PY{n}{max\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Maximum number of levels in tree}
+         \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{]}
+         \PY{n}{max\PYZus{}depth}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Minimum number of samples required to split a node}
+         \PY{n}{min\PYZus{}samples\PYZus{}split} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Minimum number of samples required at each leaf node}
+         \PY{n}{min\PYZus{}samples\PYZus{}leaf} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Method of selecting samples for training each tree}
+         \PY{n}{bootstrap} \PY{o}{=} \PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} Create the random grid}
+         \PY{n}{random\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{n\PYZus{}estimators}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{max\PYZus{}features}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{max\PYZus{}depth}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bootstrap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{bootstrap}\PY{p}{\PYZcb{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{random\PYZus{}grid}\PY{p}{)}
+         \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bootstrap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{70}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{600}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1200}\PY{p}{,} \PY{l+m+mi}{1400}\PY{p}{,} \PY{l+m+mi}{1600}\PY{p}{,} \PY{l+m+mi}{1800}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{]}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'n\_estimators': [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000], 'max\_features': ['auto', 'sqrt'], 'max\_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, None], 'min\_samples\_split': [2, 5, 10], 'min\_samples\_leaf': [1, 2, 4], 'bootstrap': [True, False]\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} \{'bootstrap': [True, False],
+          'max\_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],
+          'max\_features': ['auto', 'sqrt'],
+          'min\_samples\_leaf': [1, 2, 4],
+          'min\_samples\_split': [2, 5, 10],
+          'n\_estimators': [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000]\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} Use the random grid to search for best hyperparameters}
+         \PY{c+c1}{\PYZsh{} First create the base model to tune}
+         \PY{n}{rf} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Random search of parameters, using 3 fold cross validation, }
+         \PY{c+c1}{\PYZsh{} search across 100 different combinations, and use all available cores}
+         \PY{n}{rf\PYZus{}random} \PY{o}{=} \PY{n}{RandomizedSearchCV}\PY{p}{(}\PY{n}{estimator} \PY{o}{=} \PY{n}{rf}\PY{p}{,} \PY{n}{param\PYZus{}distributions} \PY{o}{=} \PY{n}{random\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{,} \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Fit the random search model}
+         \PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 40 candidates, totalling 120 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Done  33 tasks      | elapsed: 485.6min
+[Parallel(n\_jobs=-1)]: Done 120 out of 120 | elapsed: 1838.0min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} RandomizedSearchCV(cv=3, error\_score='raise',
+                   estimator=RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+                     max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, n\_estimators=10, n\_jobs=1,
+                     oob\_score=False, random\_state=None, verbose=0,
+                     warm\_start=False),
+                   fit\_params=None, iid=True, n\_iter=40, n\_jobs=-1,
+                   param\_distributions=\{'n\_estimators': [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000], 'max\_features': ['auto', 'sqrt'], 'max\_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, None], 'min\_samples\_split': [2, 5, 10], 'min\_samples\_leaf': [1, 2, 4], 'bootstrap': [True, False]\},
+                   pre\_dispatch='2*n\_jobs', random\_state=42, refit=True,
+                   return\_train\_score='warn', scoring=None, verbose=2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{rf\PYZus{}random}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} \{'bootstrap': False,
+          'max\_depth': 80,
+          'max\_features': 'auto',
+          'min\_samples\_leaf': 1,
+          'min\_samples\_split': 10,
+          'n\_estimators': 1000\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{}evaluate random forest using best params above}
+          \PY{c+c1}{\PYZsh{}Try Random Forest with different number of estimators}
+          \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}best\PYZus{}params\PYZus{}random\PYZus{}search.pkl}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest using parameters from random search}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{feature\PYZus{}importance} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest using parameters from random search
+Training set:
+             precision    recall  f1-score   support
+
+          0       1.00      1.00      1.00     71916
+          1       1.00      1.00      1.00     33735
+
+avg / total       1.00      1.00      1.00    105651
+
+Test set:
+             precision    recall  f1-score   support
+
+          0       0.92      0.96      0.94     30804
+          1       0.91      0.81      0.86     14475
+
+avg / total       0.91      0.91      0.91     45279
+
+Accuracy:  0.914971620397977
+--- 125.50481796264648 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} \PYZsh{}Try Gradient Boost with feature selection and PCA}
+        \PY{c+c1}{\PYZsh{} \PYZsh{}split data}
+        \PY{c+c1}{\PYZsh{} \PYZsh{} Definine outcome and predictors.}
+        
+        \PY{c+c1}{\PYZsh{} start\PYZus{}time = time.time()}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{}Set pickle file name}
+        \PY{c+c1}{\PYZsh{} rf\PYZus{}filename = r\PYZsq{}gridsearch.pkl\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{}pickle the pipeline}
+        \PY{c+c1}{\PYZsh{} if not os.path.exists(rf\PYZus{}filename):}
+        \PY{c+c1}{\PYZsh{}     \PYZsh{}set params}
+        \PY{c+c1}{\PYZsh{}     params = \PYZob{}\PYZsq{}n\PYZus{}estimators\PYZsq{}: 100,}
+        \PY{c+c1}{\PYZsh{}           \PYZsq{}max\PYZus{}depth\PYZsq{}: 100,}
+        \PY{c+c1}{\PYZsh{}           \PYZsq{}loss\PYZsq{}: \PYZsq{}deviance\PYZsq{}\PYZcb{}}
+            
+        \PY{c+c1}{\PYZsh{}     \PYZsh{} Initialize and fit the model.}
+        \PY{c+c1}{\PYZsh{}     clf = ensemble.GradientBoostingClassifier(**params)}
+        \PY{c+c1}{\PYZsh{}     scaler =  StandardScaler()}
+        
+        
+        \PY{c+c1}{\PYZsh{}     pipeline = Pipeline([}
+        \PY{c+c1}{\PYZsh{}         (\PYZsq{}scale\PYZsq{}, scaler),}
+        \PY{c+c1}{\PYZsh{}         (\PYZsq{}classifier\PYZsq{}, clf)}
+        \PY{c+c1}{\PYZsh{}     ])}
+            
+        \PY{c+c1}{\PYZsh{}     gridsearch = GridSearchCV(pipeline, \PYZob{}}
+        \PY{c+c1}{\PYZsh{}     \PYZsq{}classifier\PYZus{}\PYZus{}n\PYZus{}estimators\PYZsq{}: [20,30],}
+        \PY{c+c1}{\PYZsh{}     \PYZsq{}classifier\PYZus{}\PYZus{}max\PYZus{}depth\PYZsq{}: [2,5],}
+        \PY{c+c1}{\PYZsh{}     \PYZsq{}classifier\PYZus{}\PYZus{}learning\PYZus{}rate\PYZsq{}: [0.99,.5, 0.1],}
+        \PY{c+c1}{\PYZsh{}     \PYZsq{}classifier\PYZus{}\PYZus{}subsample\PYZsq{}: [1.0, 0.3],}
+        \PY{c+c1}{\PYZsh{}     \PYZsq{}classifier\PYZus{}\PYZus{}loss\PYZsq{}: [\PYZsq{}deviance\PYZsq{}, \PYZsq{}exponential\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{}     \PYZcb{}, scoring=\PYZsq{}f1\PYZsq{}, cv=3, refit=True, n\PYZus{}jobs=4, verbose=1)}
+        
+        \PY{c+c1}{\PYZsh{}     gridsearch.fit(X\PYZus{}train, y\PYZus{}train)}
+        \PY{c+c1}{\PYZsh{}     pickle.dump(gridsearch, open(rf\PYZus{}filename, \PYZsq{}wb\PYZsq{}))}
+        \PY{c+c1}{\PYZsh{} else:}
+        \PY{c+c1}{\PYZsh{}     pipeline = pickle.load(open(rf\PYZus{}filename, \PYZsq{}rb\PYZsq{}))}
+        
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Gridsearch CV\PYZsq{})}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Training set:\PYZsq{})}
+        \PY{c+c1}{\PYZsh{} print(classification\PYZus{}report(y\PYZus{}train, gridsearch.best\PYZus{}estimator\PYZus{}.predict(X\PYZus{}train)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Test set:\PYZsq{})}
+        \PY{c+c1}{\PYZsh{} print(classification\PYZus{}report(y\PYZus{}test, gridsearch.best\PYZus{}estimator\PYZus{}.predict(X\PYZus{}test)))}
+        \PY{c+c1}{\PYZsh{} print(gridsearch.best\PYZus{}estimator\PYZus{})}
+        \PY{c+c1}{\PYZsh{} print(\PYZdq{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZpc{}s seconds \PYZhy{}\PYZhy{}\PYZhy{}\PYZdq{} \PYZpc{} (time.time() \PYZhy{} start\PYZus{}time))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}Try a Voting Ensemble \PYZhy{} Naive Bayes, Logistic Regression, Random Forest with feature selection and PCA}
+         \PY{c+c1}{\PYZsh{}split data}
+         \PY{c+c1}{\PYZsh{} Definine outcome and predictors.}
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Set pickle file name}
+         \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ensemble\PYZus{}4\PYZus{}models.pkl}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{}pickle the pipeline}
+         \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Initialize and fit the model.}
+             \PY{n}{clf1} \PY{o}{=}  \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+             \PY{n}{clf2} \PY{o}{=}  \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e9}\PY{p}{)}
+             \PY{n}{clf3} \PY{o}{=}  \PY{n}{BernoulliNB}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deviance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{99}\PY{p}{\PYZcb{}}
+             
+             \PY{c+c1}{\PYZsh{} Initialize and fit the model.}
+             \PY{n}{clf4} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{params}\PY{p}{)}
+             
+             
+             \PY{n}{eclf1} \PY{o}{=} \PY{n}{ensemble}\PY{o}{.}\PY{n}{VotingClassifier}\PY{p}{(}\PY{n}{estimators}\PY{o}{=}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bnb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf4}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{voting}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{soft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{scaler} \PY{o}{=}  \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+             \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         
+             \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                 \PY{c+c1}{\PYZsh{}(\PYZsq{}feature\PYZus{}selection\PYZsq{}, SelectFromModel(LinearSVC(loss=\PYZsq{}l2\PYZsq{}, penalty=\PYZsq{}l1\PYZsq{}, dual=False))),}
+                 \PY{c+c1}{\PYZsh{}(\PYZsq{}dimensions\PYZsq{}, sklearn\PYZus{}pca),}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{eclf1}\PY{p}{)}
+             \PY{p}{]}\PY{p}{)}
+             \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n}{pipeline} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Voting Ensemble \PYZhy{} Random Forest, Logistic Regression, Gradient Boost, and Naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy:  }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ seconds \PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Voting Ensemble - Random Forest, Logistic Regression, Gradient Boost, and Naive Bayes
+Training set:
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}lkonig\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}preprocessing\textbackslash{}label.py:151: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if diff:
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+          0       0.95      0.95      0.95     71916
+          1       0.90      0.89      0.89     33735
+
+avg / total       0.93      0.93      0.93    105651
+
+Test set:
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}lkonig\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}preprocessing\textbackslash{}label.py:151: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if diff:
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+          0       0.92      0.92      0.92     30804
+          1       0.83      0.82      0.83     14475
+
+avg / total       0.89      0.89      0.89     45279
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}lkonig\textbackslash{}AppData\textbackslash{}Local\textbackslash{}Continuum\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}preprocessing\textbackslash{}label.py:151: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if diff:
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy:  0.8896839594514013
+--- 103.04705667495728 seconds ---
+
+    \end{Verbatim}
+
+    \subsection{Model Selection}\label{model-selection}
+
+As a result, the Random Forest model was selected due to it's high
+f1-score of .91. While the model may be overfit on the training set
+(with an f1-score of 1.00), no other model or combination exceeded .89.
+
+    \subsection{Step 5: Analyze Important
+Features}\label{step-5-analyze-important-features}
+
+By looking at the top coefficients from the logistic regression results,
+some of the key features/words contributing to an exceptional
+classification include:
+
+\begin{itemize}
+\tightlist
+\item
+  Character count
+\item
+  Price
+\item
+  Mendoza region
+\item
+  Côtes de Provence
+\item
+  The word "sample"
+\item
+  The word "rich"
+\item
+  The word "beautiful"
+\item
+  The word "complex"
+\end{itemize}
+
+On the flip side, some of the negative features/words that contributed
+to a wine not being classified as exceptional include:
+
+\begin{itemize}
+\tightlist
+\item
+  Mendoza province
+\item
+  The country of Argentina
+\item
+  The province of Provence
+\item
+  The country of France
+\item
+  The province of Southwest France
+\item
+  The region of Bourgogne
+\end{itemize}
+
+    Additionally, important features may be revealed by investigating the
+feature\_importances from the random forest classifier. Feature
+importance is defined as the total decrease in node impurity (weighted
+by the probability of reaching that node (which is approximated by the
+proportion of samples reaching that node) averaged over all trees of the
+ensemble. The top features include:
+
+\begin{itemize}
+\tightlist
+\item
+  Price
+\item
+  Character count
+\item
+  word count
+\item
+  average word size
+\item
+  Number of stop words
+\item
+  The word "complex"
+\item
+  The word "years"
+\item
+  The word "rich"
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}features}\PY{p}{(}\PY{n}{feature\PYZus{}string}\PY{p}{,} \PY{n}{feature\PYZus{}string\PYZus{}replace}\PY{p}{,}\PY{n}{does\PYZus{}not\PYZus{}contain}\PY{p}{,} \PY{n}{num\PYZus{}features}\PY{p}{,} \PY{n}{plt\PYZus{}title}\PY{p}{,} \PY{n}{rev}\PY{p}{)}\PY{p}{:}
+          
+              \PY{k}{if} \PY{n}{does\PYZus{}not\PYZus{}contain} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+                  \PY{n}{features} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{coeffs\PYZus{}lr} \PY{k}{if} \PY{n}{feature\PYZus{}string} \PY{o+ow}{in} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                  \PY{n}{features} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{n}{rev}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:} 
+                  \PY{n}{features} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{coeffs\PYZus{}lr}\PY{p}{:} 
+                      \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{does\PYZus{}not\PYZus{}contain}\PY{p}{:} 
+                          \PY{k}{if} \PY{n}{d} \PY{o+ow}{in} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{features}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+              
+                  \PY{n}{features} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{coeffs\PYZus{}lr}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{set}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{n}{rev}\PY{p}{)}
+                 
+              \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{feature\PYZus{}string\PYZus{}replace}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{features}\PY{p}{]}
+              \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{features}\PY{p}{]}
+              
+              \PY{k}{if} \PY{n}{rev} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                  \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{100.0} \PY{o}{*} \PY{p}{(}\PY{n}{feature\PYZus{}coeff} \PY{o}{/} \PY{n+nb}{max}\PY{p}{(}\PY{n}{feature\PYZus{}coeff}\PY{p}{)}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{100.0} \PY{o}{*} \PY{p}{(}\PY{n}{feature\PYZus{}coeff} \PY{o}{/} \PY{n+nb}{min}\PY{p}{(}\PY{n}{feature\PYZus{}coeff}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}features}\PY{p}{]}
+              \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{n}{feature\PYZus{}name}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}features}\PY{p}{]}
+              
+              \PY{n}{pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{num\PYZus{}features}\PY{p}{)} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{5}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}bar color}
+              \PY{k}{if} \PY{n}{rev} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      
+              \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}name}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relative Feature Coefficient from Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{plt\PYZus{}title}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}features\PYZus{}points}\PY{p}{(}\PY{n}{feature\PYZus{}string}\PY{p}{,} \PY{n}{feature\PYZus{}string\PYZus{}replace}\PY{p}{,}\PY{n}{does\PYZus{}not\PYZus{}contain}\PY{p}{,} \PY{n}{num\PYZus{}features}\PY{p}{,} \PY{n}{plt\PYZus{}title}\PY{p}{,} \PY{n}{rev}\PY{p}{)}\PY{p}{:}
+         
+             \PY{k}{if} \PY{n}{does\PYZus{}not\PYZus{}contain} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} 
+                 \PY{n}{features} \PY{o}{=} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{coeffs\PYZus{}points} \PY{k}{if} \PY{n}{feature\PYZus{}string} \PY{o+ow}{in} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{features} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{n}{rev}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:} 
+                 \PY{n}{features} \PY{o}{=}\PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{coeffs\PYZus{}points}\PY{p}{:} 
+                     \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{does\PYZus{}not\PYZus{}contain}\PY{p}{:} 
+                         \PY{k}{if} \PY{n}{d} \PY{o+ow}{in} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                             \PY{n}{features}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             
+                 \PY{n}{features} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{coeffs\PYZus{}points}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{set}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{n}{rev}\PY{p}{)}
+                
+             \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{feature\PYZus{}string\PYZus{}replace}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{features}\PY{p}{]}
+             \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{p}{[}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{features}\PY{p}{]}
+             
+             \PY{k}{if} \PY{n}{rev} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{100.0} \PY{o}{*} \PY{p}{(}\PY{n}{feature\PYZus{}coeff} \PY{o}{/} \PY{n+nb}{max}\PY{p}{(}\PY{n}{feature\PYZus{}coeff}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{l+m+mf}{100.0} \PY{o}{*} \PY{p}{(}\PY{n}{feature\PYZus{}coeff} \PY{o}{/} \PY{n+nb}{min}\PY{p}{(}\PY{n}{feature\PYZus{}coeff}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{feature\PYZus{}coeff} \PY{o}{=} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}features}\PY{p}{]}
+             \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{n}{feature\PYZus{}name}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}features}\PY{p}{]}
+             
+             \PY{n}{pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{num\PYZus{}features}\PY{p}{)} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{5}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}bar color}
+             \PY{k}{if} \PY{n}{rev} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}coeff}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     
+             \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}name}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relative Feature Coefficient from Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{plt\PYZus{}title}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{c+c1}{\PYZsh{}Top Regions}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Wine Regions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}Bottom Regions}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region\PYZus{}1\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Wine Regions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{}Top Countries}
+         \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Wine Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{}Bottom Countries}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Wine Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{}Top Provinces}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Wine Provinces}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{c+c1}{\PYZsh{}Bottom Provinces}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{province\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Wine Provinces}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{}Top Varieties}
+         \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Wine Varieties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{c+c1}{\PYZsh{}Bottom Varieties}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variety\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Wine Varieties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{}Top Words}
+         \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}Bottom Words}
+          \PY{n}{plot\PYZus{}features}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stopwords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} Make importances relative to max importance.}
+          \PY{n}{feature\PYZus{}importance} \PY{o}{=} \PY{l+m+mf}{100.0} \PY{o}{*} \PY{p}{(}\PY{n}{feature\PYZus{}importance} \PY{o}{/} \PY{n}{feature\PYZus{}importance}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sorted\PYZus{}idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{feature\PYZus{}importance}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{:}\PY{p}{]}
+          \PY{n}{pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{sorted\PYZus{}idx}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{5}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{feature\PYZus{}importance}\PY{p}{[}\PY{n}{sorted\PYZus{}idx}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{sorted\PYZus{}idx}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Relative Feature Importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variable Importance from selected Random Forest Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Step 6: Future Steps}\label{step-6-future-steps}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Trying different model weightings and PCA components to achieve
+  consistency between the training and test set
+\item
+  Evaluating the model's performance when a key variable like price is
+  removed since the price may be derived based on the description and
+  the wine's future potential.
+\item
+  Create a regressor model to predict points, and attempt to maximize
+  the r-squared of the test set, while not overfitting to a training set
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}model\PYZus{}no\PYZus{}price}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{n}{bool\PYZus{}feature\PYZus{}selection}\PY{p}{,} \PY{n}{bool\PYZus{}pca}\PY{p}{,} \PY{n}{num\PYZus{}components}\PY{p}{,} \PY{n}{clf}\PY{p}{)}\PY{p}{:}
+            \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Initialize and fit the model.}
+                \PY{n}{scaler} \PY{o}{=}  \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{False}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{False} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}       
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                        
+                \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}np}\PY{p}{)}
+                \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{pipeline} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training set (No Price):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}np}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}np}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test set (No Price):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}np}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}np}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy:  }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}np}\PY{p}{,} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}np}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ seconds \PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{pipeline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}evaluate random forest using best params above}
+        \PY{c+c1}{\PYZsh{}Try Random Forest with different number of estimators}
+        \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random\PYZus{}forest\PYZus{}best\PYZus{}params\PYZus{}random\PYZus{}search\PYZus{}no\PYZus{}price.pkl}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model\PYZus{}no\PYZus{}price}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest using parameters from random search without price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{feature\PYZus{}importance\PYZus{}np} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest using parameters from random search without price
+Training set (No Price):
+             precision    recall  f1-score   support
+
+          0       1.00      1.00      1.00     71824
+          1       1.00      1.00      1.00     33827
+
+avg / total       1.00      1.00      1.00    105651
+
+Test set (No Price):
+             precision    recall  f1-score   support
+
+          0       0.91      0.96      0.94     30896
+          1       0.91      0.80      0.85     14383
+
+avg / total       0.91      0.91      0.91     45279
+
+Accuracy:  0.9098257470350494
+--- 130.77624702453613 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}model\PYZus{}points}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{n}{bool\PYZus{}feature\PYZus{}selection}\PY{p}{,} \PY{n}{bool\PYZus{}pca}\PY{p}{,} \PY{n}{num\PYZus{}components}\PY{p}{,} \PY{n}{clf}\PY{p}{)}\PY{p}{:}
+            \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Initialize and fit the model.}
+                \PY{n}{scaler} \PY{o}{=}  \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{if} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{True} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{False}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}selection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dual}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{bool\PYZus{}feature\PYZus{}selection} \PY{o}{==} \PY{k+kc}{False} \PY{o}{\PYZam{}} \PY{n}{bool\PYZus{}pca} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Set PCA}
+                    \PY{n}{sklearn\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{num\PYZus{}components}\PY{p}{)}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sklearn\PYZus{}pca}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}       
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scaler}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+                        
+                \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}points}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}points}\PY{p}{)}
+                \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{pipeline} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}points}\PY{p}{,}\PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}points}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test set:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}points}\PY{p}{,}\PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}points}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ seconds \PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{pipeline}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}evaluate random forest using best params above}
+        \PY{c+c1}{\PYZsh{}Try Random Forest with different number of estimators}
+        \PY{n}{rf\PYZus{}filename} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge\PYZus{}regression.pkl}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{pipeline} \PY{o}{=} \PY{n}{run\PYZus{}model\PYZus{}points}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rf\PYZus{}filename}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{Ridge}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ridge Regression
+Training set:
+0.7534713911750992
+Test set:
+0.7407043985488787
+--- 15.522043704986572 seconds ---
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}plt.scatter(pipe.predict(test\PYZus{}inp),test\PYZus{}out)}
+         \PY{n}{pred\PYZus{}actual} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}points}\PY{p}{)}\PY{p}{,}\PY{n}{y\PYZus{}test\PYZus{}points}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pred\PYZus{}actual}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{pred\PYZus{}actual}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{g}\PY{o}{.}\PY{n}{fig} 
+         \PY{c+c1}{\PYZsh{} Add a title to the Figure}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Points vs. Actual for Ridge Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{coeffs\PYZus{}points} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{pipeline}\PY{o}{.}\PY{n}{named\PYZus{}steps}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}points}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Top Coefficients}
+         \PY{n}{plot\PYZus{}features\PYZus{}points}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top Coefficients from Ridge Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}Bottom Coefficients}
+         \PY{n}{plot\PYZus{}features\PYZus{}points}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bottom Coefficients from Ridge Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Questions/Comments?}\label{questionscomments}
+
+``Anyone who tries to make you believe that he knows all about wines is
+obviously a fake.''
+
+― Leon Adams, The Commonsense Book of Wine
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
